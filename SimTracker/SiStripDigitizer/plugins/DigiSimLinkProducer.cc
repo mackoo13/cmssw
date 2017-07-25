@@ -201,7 +201,7 @@ void DigiSimLinkProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSe
   }
 
   // Step C: create output collection
-  std::auto_ptr<edm::DetSetVector<StripDigiSimLink> > outputlink(new edm::DetSetVector<StripDigiSimLink>(theDigiLinkVector));
+  std::unique_ptr<edm::DetSetVector<StripDigiSimLink> > outputlink(new edm::DetSetVector<StripDigiSimLink>(theDigiLinkVector));
   // Step D: write output to file
-  iEvent.put(outputlink);
+  iEvent.put(std::move(outputlink));
 }
