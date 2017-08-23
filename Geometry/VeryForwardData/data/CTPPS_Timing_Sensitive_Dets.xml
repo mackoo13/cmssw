@@ -4,7 +4,7 @@
               xsi:schemaLocation="http://www.cern.ch/cms/DDL ../../DDLSchema/DDLSchema.xsd">
     <SpecParSection label="CTPPS_Timing_Sensitive_Dets.xml">
         <SpecPar name="ROUHitsCTPPSTiming">
-            <PartSelector path="//CTPPS_Diamond_Main_Box"/>
+            <PartSelector path="//.*:CTPPS_Diamond_Plane"/>
             <Parameter name="SensitiveDetector" value="CTPPSTimingSensitiveDetector" eval="false"/>
             <Parameter name="ReadOutName" value="CTPPSHitsTiming" eval="false"/>
         </SpecPar>
