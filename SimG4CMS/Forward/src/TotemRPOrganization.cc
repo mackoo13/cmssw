@@ -54,7 +54,6 @@ uint32_t TotemRPOrganization :: GetUnitID(const G4Step* aStep) {
     if(physVol->GetName() == "RP_Silicon_Detector" || physVol->GetName() == "CTPPS_Diamond_Plane")
     {
       detector = physVol->GetCopyNo();
-      std::cout<<"\n=== bla TotemRPOrganization.cc 56 ===\n"<<detector<<std::endl;
     }
     else if(physVol->GetName() == "RP_box_primary_vacuum")
     {
@@ -62,7 +61,6 @@ uint32_t TotemRPOrganization :: GetUnitID(const G4Step* aStep) {
       arm = (cpy_no/100)%10;
       station = (cpy_no/10)%10;
       roman_pot = cpy_no%10;
-      std::cout<<"\n=== bla TotemRPOrganization.cc 65 ===\n"<<std::endl;
     }
 
 #ifdef SCRIVI
