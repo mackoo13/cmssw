@@ -19,12 +19,14 @@
 #include "SimG4Core/SensitiveDetector/interface/SensitiveDetectorPluginFactory.h"
 #include "SimG4Core/Watcher/interface/SimWatcherFactory.h"
 #include "FWCore/PluginManager/interface/ModuleDef.h"
-  
+
 
 typedef CastorSD CastorSensitiveDetector;
 DEFINE_SENSITIVEDETECTOR(CastorSensitiveDetector);
 typedef TotemSD TotemSensitiveDetector;
 DEFINE_SENSITIVEDETECTOR(TotemSensitiveDetector);
+typedef TotemSD CTPPSTimingSensitiveDetector;
+DEFINE_SENSITIVEDETECTOR(CTPPSTimingSensitiveDetector);
 typedef ZdcSD ZdcSensitiveDetector;
 DEFINE_SENSITIVEDETECTOR(ZdcSensitiveDetector);
 typedef BscSD BSCSensitiveDetector;
@@ -44,3 +46,4 @@ DEFINE_SIMWATCHER (TotemTestGem);
 DEFINE_SIMWATCHER (BscTest);
 DEFINE_SIMWATCHER (SimG4FluxProducer);
 DEFINE_SIMWATCHER(TotemRP);
+//DEFINE_SIMWATCHER(...); todo mackoo13
