@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(2)     # 82 to wait for a hit
+    input = cms.untracked.int32(682)     # 82 to wait for a hit
 )
 
 # Configure the output module (save the result in a file)
@@ -67,8 +67,8 @@ process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService
                                                    sourceSeed = cms.PSet(initialSeed =cms.untracked.uint32(98765)),
                                                    generator = cms.PSet(initialSeed = cms.untracked.uint32(98766)),
                                                    SmearingGenerator = cms.PSet(initialSeed =cms.untracked.uint32(3849)),
-                                                   T2Digis = cms.PSet(initialSeed =cms.untracked.uint32(98765)),
-                                                   T2MCl = cms.PSet(initialSeed =cms.untracked.uint32(24141)),
+                                                   # T2Digis = cms.PSet(initialSeed =cms.untracked.uint32(98765)),
+                                                   # T2MCl = cms.PSet(initialSeed =cms.untracked.uint32(24141)),
                                                    RPFastStationSimulation = cms.PSet(initialSeed =cms.untracked.uint32(12)),
                                                    RPFastFullSimulation = cms.PSet(initialSeed =cms.untracked.uint32(13)),
                                                    mix = cms.PSet(initialSeed = cms.untracked.uint32(24141)),
@@ -93,11 +93,11 @@ process.BeamOpticsParamsESSource = cms.ESSource("BeamOpticsParamsESSource",
                                                 BeamEnergy = cms.double(6500.0), # Gev
                                                 ProtonMass = cms.double(0.938272029), # Gev
                                                 LightSpeed = cms.double(300000000.0),
-                                                NormalizedEmittanceX = cms.double(3.75e-06),
-                                                NormalizedEmittanceY = cms.double(3.75e-06),
-                                                BetaStarX = cms.double(0.8), # m
-                                                BetaStarY = cms.double(0.8), # m
-                                                CrossingAngleX = cms.double(145e-6),
+                                                NormalizedEmittanceX = cms.double(2.5e-06),
+                                                NormalizedEmittanceY = cms.double(2.5e-06),
+                                                BetaStarX = cms.double(0.4), # m
+                                                BetaStarY = cms.double(0.4), # m
+                                                CrossingAngleX = cms.double(150e-6),
                                                 CrossingAngleY = cms.double(0.0),
                                                 BeamDisplacementX = cms.double(0.0), # m
                                                 BeamDisplacementY = cms.double(0.0), # m
@@ -554,7 +554,7 @@ process.p1 = cms.Path(
     *process.SmearingGenerator
     *process.g4SimHits
     *process.mix
-    *process.DiamondSiDetDigitizer
+    # *process.DiamondSiDetDigitizer
     # *process.UFSDSiDetDigitizer
     #*process.RPClustProd
     #*process.RPHecoHitProd

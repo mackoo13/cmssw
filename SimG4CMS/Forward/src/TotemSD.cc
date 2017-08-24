@@ -351,6 +351,7 @@ void TotemSD::CreateNewHit()
 
 G4ThreeVector TotemSD::PosizioEvo(const G4ThreeVector& Pos, double vx, double vy,
                                   double vz, double pabs, int& accettanza) {
+  std::cout<<"\n=== bla TotemSD.cc 354 ===\n"<<std::endl;
   accettanza=0;
   G4ThreeVector PosEvo;
   double ThetaX=atan((Pos.x()-vx)/(Pos.z()-vz));
@@ -440,6 +441,7 @@ G4ThreeVector TotemSD::PosizioEvo(const G4ThreeVector& Pos, double vx, double vy
 
 void TotemSD::StoreHit(TotemG4Hit* hit)
 {
+  std::cout<<"\n=== bla TotemSD.cc 444 ===\n"<<std::endl;
   if (hit == 0 )
   {
     if(verbosity_)

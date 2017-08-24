@@ -5,6 +5,7 @@
     <SpecParSection label="CTPPS_Diamond_Sensitive_Dets.xml">
         <SpecPar name="ROUHitsCTPPSDiamond">
             <PartSelector path="//.*:CTPPS_Diamond_Plane"/>
+            <!--<PartSelector path="//CTPPS_Timing_Horizontal_Pot:External_Wall"/>-->
             <Parameter name="SensitiveDetector" value="CTPPSDiamondSensitiveDetector" eval="false"/>
             <Parameter name="ReadOutName" value="CTPPSHitsDiamond" eval="false"/>
         </SpecPar>

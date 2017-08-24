@@ -126,6 +126,7 @@ OscarMTProducer::OscarMTProducer(edm::ParameterSet const & p, const OscarMTMaste
 
   for(Producers::iterator itProd = m_producers.begin();
       itProd != m_producers.end(); ++itProd) {
+    std::cout<<"\n=== bla OscarMTProducer.cc 129 ===\n"<<std::endl;
 
     (*itProd)->registerProducts(*this);
   }
@@ -198,6 +199,7 @@ void OscarMTProducer::produce(edm::Event & e, const edm::EventSetup & es)
 
         std::unique_ptr<edm::PSimHitContainer>
                 product(new edm::PSimHitContainer);
+        std::cout<<"\n=== bla OscarMTProducer.cc 201 ===\n"<<std::endl;
         (*it)->fillHits(*product,*in);
         e.put(std::move(product),*in);
       }
