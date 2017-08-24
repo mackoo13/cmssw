@@ -27,15 +27,15 @@ namespace CLHEP{
 }
 
 
-class TimingDetDigitizer
+class DiamondDetDigitizer
 {
 public:
-    TimingDetDigitizer(const edm::ParameterSet &params, CLHEP::HepRandomEngine& eng, RPDetId det_id, const edm::EventSetup& iSetup);
+    DiamondDetDigitizer(const edm::ParameterSet &params, CLHEP::HepRandomEngine& eng, RPDetId det_id, const edm::EventSetup& iSetup);
     void run(const std::vector<PSimHit> &input, const std::vector<int> &input_links,
              std::vector<RPStripDigi> &output_digi, std::vector<RPDetTrigger> &output_trig,
              SimRP::DigiPrimaryMapType &output_digi_links,
              SimRP::TriggerPrimaryMapType &output_trig_links);
-    ~TimingDetDigitizer();
+    ~DiamondDetDigitizer();
 
 private:
     RPGaussianTailNoiseAdder *theRPGaussianTailNoiseAdder;

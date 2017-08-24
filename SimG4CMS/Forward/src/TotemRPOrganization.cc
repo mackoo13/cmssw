@@ -51,7 +51,7 @@ uint32_t TotemRPOrganization :: GetUnitID(const G4Step* aStep) {
   {
     physVol = touch->GetVolume(ii);
     std::cout<<"\n=== bla TotemRPOrganization.cc 53 ===\n"<<physVol->GetName()<<" - "<<physVol->GetCopyNo()<<std::endl;
-    if(physVol->GetName() == "RP_Silicon_Detector" || physVol->GetName() == "CTPPS_Diamond_Plane")
+    if(physVol->GetName() == "RP_Silicon_Detector" || physVol->GetName() == "CTPPS_Diamond_Plane" || physVol->GetName() == "CTPPS_UFSD_Plane")
     {
       detector = physVol->GetCopyNo();
     }

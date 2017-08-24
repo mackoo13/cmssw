@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(82)     # 82 to wait for a hit
+    input = cms.untracked.int32(2)     # 82 to wait for a hit
 )
 
 # Configure the output module (save the result in a file)
@@ -62,7 +62,8 @@ process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService
                                                    g4SimHits = cms.PSet(initialSeed = cms.untracked.uint32(9876)),
                                                    SimG4Object = cms.PSet(initialSeed =cms.untracked.uint32(9876)),
                                                    RPSiDetDigitizer = cms.PSet(initialSeed =cms.untracked.uint32(137137)),
-                                                   TimingSiDetDigitizer = cms.PSet(initialSeed =cms.untracked.uint32(137137)),
+                                                   DiamondSiDetDigitizer = cms.PSet(initialSeed =cms.untracked.uint32(137137)),
+                                                   UFSDSiDetDigitizer = cms.PSet(initialSeed =cms.untracked.uint32(137137)),
                                                    sourceSeed = cms.PSet(initialSeed =cms.untracked.uint32(98765)),
                                                    generator = cms.PSet(initialSeed = cms.untracked.uint32(98766)),
                                                    SmearingGenerator = cms.PSet(initialSeed =cms.untracked.uint32(3849)),
@@ -208,7 +209,7 @@ totemGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/RP_147_Right_Station.xml',
     'Geometry/VeryForwardData/data/RP_147_Left_Station.xml',
     'Geometry/VeryForwardData/data/RP_Stations_Assembly.xml',
-    'Geometry/VeryForwardData/data/RP_Sensitive_Dets.xml',
+    # 'Geometry/VeryForwardData/data/RP_Sensitive_Dets.xml',
     'Geometry/VeryForwardData/data/RP_Cuts_Per_Region.xml',
     'Geometry/VeryForwardData/data/RP_Param_Beam_Region.xml')
 
@@ -240,6 +241,7 @@ ctppsDiamondGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane3.xml',
     #'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane4.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Detector_Assembly.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Diamond_Sensitive_Dets.xml',
 )
 
 ctppsUFSDGeomXMLFiles = cms.vstring(
@@ -249,7 +251,7 @@ ctppsUFSDGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/CTPPS_UFSD_Segments/CTPPS_UFSD_Pattern2_SegmentB.xml',
     'Geometry/VeryForwardData/data/CTPPS_UFSD_Planes/CTPPS_UFSD_Plane4.xml',
     'Geometry/VeryForwardData/data/CTPPS_UFSD_Parameters.xml',
-    # 'Geometry/VeryForwardData/data/CTPPS_UFSD_Detector_Assembly.xml',
+    'Geometry/VeryForwardData/data/CTPPS_UFSD_Sensitive_Dets.xml',
 )
 
 process.XMLIdealGeometryESSource = cms.ESSource("XMLIdealGeometryESSource",
@@ -504,11 +506,11 @@ process.mix = cms.EDProducer("MixingModule",
 
 #from SimGeneral/MixingModule/python/mix_Objects_cfi.py
 process.mix.mixObjects.mixSH.input =  cms.VInputTag(  # note that this list needs to be in the same order as the subdets
-    cms.InputTag("g4SimHits","TotemHitsRP"), cms.InputTag("g4SimHits","PPSTrackerHits"), cms.InputTag("g4SimHits","CTPPSHitsTiming"))
+    cms.InputTag("g4SimHits","CTPPSHitsDiamond"), cms.InputTag("g4SimHits","CTPPSHitsUFSD"))
 
-process.mix.mixObjects.mixSH.subdets = cms.vstring('TotemHitsRP', 'PPSTrackerHits', 'CTPPSHitsTiming')
+process.mix.mixObjects.mixSH.subdets = cms.vstring('CTPPSHitsDiamond','CTPPSHitsUFSD')
 
-process.mix.mixObjects.mixSH.crossingFrames = cms.untracked.vstring('TotemHitsRP', 'PPSTrackerHits', 'CTPPSHitsTiming')
+process.mix.mixObjects.mixSH.crossingFrames = cms.untracked.vstring('CTPPSHitsDiamond','CTPPSHitsUFSD')
 
 
 # Use particle table
@@ -517,7 +519,8 @@ process.load("SimGeneral.HepPDTESSource.pdt_cfi")
 
 ################## STEP 5 RPDigiProducer
 
-process.load("SimTotem.RPDigiProducer.TimingSiDetConf_cfi")
+process.load("SimTotem.RPDigiProducer.DiamondSiDetConf_cfi")
+# process.load("SimTotem.RPDigiProducer.UFSDSiDetConf_cfi")
 
 ################### STEP 6 reco
 #
@@ -536,7 +539,8 @@ process.load("SimTotem.RPDigiProducer.TimingSiDetConf_cfi")
 #
 # #######
 process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
-process.totemRPClusterProducer.tagDigi = cms.InputTag("TimingSiDetDigitizer")
+process.totemRPClusterProducer.tagDigi = cms.InputTag("DiamondSiDetDigitizer")
+# process.totemRPClusterProducer.tagDigi = cms.InputTag("UFSDSiDetDigitizer")
 #process.dump = cms.EDAnalyzer("EventContentAnalyzer")
 
 # process.RPHitDists = cms.EDAnalyzer("GeometryInfoModule")
@@ -550,7 +554,8 @@ process.p1 = cms.Path(
     *process.SmearingGenerator
     *process.g4SimHits
     *process.mix
-    *process.TimingSiDetDigitizer
+    *process.DiamondSiDetDigitizer
+    # *process.UFSDSiDetDigitizer
     #*process.RPClustProd
     #*process.RPHecoHitProd
     # *process.RPSinglTrackCandFind

@@ -2,11 +2,11 @@
 #include <iostream>
 
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
-#include "SimTotem/RPDigiProducer/interface/TimingDetDigitizer.h"
+#include "SimTotem/RPDigiProducer/interface/DiamondDetDigitizer.h"
 #include "Geometry/VeryForwardRPTopology/interface/RPTopology.h"
 
 
-TimingDetDigitizer::TimingDetDigitizer(const edm::ParameterSet &params, CLHEP::HepRandomEngine& eng, RPDetId det_id, const edm::EventSetup& iSetup)
+DiamondDetDigitizer::DiamondDetDigitizer(const edm::ParameterSet &params, CLHEP::HepRandomEngine& eng, RPDetId det_id, const edm::EventSetup& iSetup)
         : params_(params), det_id_(det_id)
 {
   verbosity_ = params.getParameter<int>("RPVerbosity");
@@ -25,7 +25,7 @@ TimingDetDigitizer::TimingDetDigitizer(const edm::ParameterSet &params, CLHEP::H
   theRPDisplacementGenerator = new RPDisplacementGenerator(params_, det_id_, iSetup);
 }
 
-TimingDetDigitizer::~TimingDetDigitizer()
+DiamondDetDigitizer::~DiamondDetDigitizer()
 {
   delete theRPGaussianTailNoiseAdder;
   delete theRPPileUpSignals;
@@ -34,13 +34,13 @@ TimingDetDigitizer::~TimingDetDigitizer()
   delete theRPDisplacementGenerator;
 }
 
-void TimingDetDigitizer::run(const std::vector<PSimHit> &input, const std::vector<int> &input_links,
+void DiamondDetDigitizer::run(const std::vector<PSimHit> &input, const std::vector<int> &input_links,
                              std::vector<RPStripDigi> &output_digi, std::vector<RPDetTrigger> &output_trig,
                              SimRP::DigiPrimaryMapType &output_digi_links,
                              SimRP::TriggerPrimaryMapType &output_trig_links)
 {
   if(verbosity_)
-    std::cout<<"TimingDetDigitizer "<<det_id_<<" received input.size()="<<input.size()<<std::endl;
+    std::cout<<"DiamondDetDigitizer "<<det_id_<<" received input.size()="<<input.size()<<std::endl;
   theRPPileUpSignals->reset();
 
   bool links_persistence_checked = _links_persistence && input_links.size()==input.size();

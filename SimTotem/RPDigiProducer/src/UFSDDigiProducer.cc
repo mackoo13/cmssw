@@ -1,4 +1,4 @@
-#include "SimTotem/RPDigiProducer/interface/TimingDigiProducer.h"
+#include "SimTotem/RPDigiProducer/interface/UFSDDigiProducer.h"
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -33,7 +33,7 @@
 #include "CondFormats/DataRecord/interface/TotemDAQMappingRecord.h"
 #include <iostream>
 
-TimingDigiProducer::TimingDigiProducer(const edm::ParameterSet& conf) :
+UFSDDigiProducer::UFSDDigiProducer(const edm::ParameterSet& conf) :
         conf_(conf) {
   //register your products
   /* Examples
@@ -49,7 +49,7 @@ TimingDigiProducer::TimingDigiProducer(const edm::ParameterSet& conf) :
   produces<edm::DetSetVector<RPDetTrigger> > ();
 
   // register data to consume
-  tokenCrossingFrameTotemRP = consumes<CrossingFrame<PSimHit>>(edm::InputTag("mix","g4SimHitsCTPPSHitsTiming", ""));
+  tokenCrossingFrameTotemRP = consumes<CrossingFrame<PSimHit>>(edm::InputTag("mix","g4SimHitsCTPPSHitsUFSD", ""));
 
   RP_hit_containers_.clear();
   RP_hit_containers_ = conf.getParameter<std::vector<std::string> > ("ROUList");
@@ -61,7 +61,7 @@ TimingDigiProducer::TimingDigiProducer(const edm::ParameterSet& conf) :
   }
 }
 
-TimingDigiProducer::~TimingDigiProducer() {
+UFSDDigiProducer::~UFSDDigiProducer() {
 
   // do anything here that needs to be done at desctruction time
   // (e.g. close files, deallocate resources etc.)
@@ -73,7 +73,7 @@ TimingDigiProducer::~TimingDigiProducer() {
 //
 
 // ------------ method called to produce the data  ------------
-void TimingDigiProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
+void UFSDDigiProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup) {
   using namespace edm;
   /* This is an event example
    //Read 'PSimHit' from the Event
@@ -106,7 +106,7 @@ void TimingDigiProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSet
   // Step A: Get Inputs
   edm::Handle<CrossingFrame<PSimHit> > cf;
 //	iEvent.getByToken(tokenCrossingFrameTotemRP, cf);
-  iEvent.getByLabel("mix", "g4SimHitsCTPPSHitsTiming", cf);
+  iEvent.getByLabel("mix", "g4SimHitsCTPPSHitsUFSD", cf);
 
   if (verbosity_) {
     std::cout << "\n\n=================== Starting SimHit access" << "  ===================" << std::endl;
@@ -164,8 +164,8 @@ void TimingDigiProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSet
     edm::DetSet<RPDetTrigger> trigger_collector(it->first);
 
     if (theAlgoMap.find(it->first) == theAlgoMap.end()) {
-      theAlgoMap[it->first] = boost::shared_ptr<TimingDetDigitizer>(
-              new TimingDetDigitizer(conf_, *rndEngine, it->first, iSetup));
+      theAlgoMap[it->first] = boost::shared_ptr<UFSDDetDigitizer>(
+              new UFSDDetDigitizer(conf_, *rndEngine, it->first, iSetup));
     }
 
     std::vector<int> input_links;
@@ -215,7 +215,7 @@ void TimingDigiProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSet
 }
 
 // ------------ method called once each job just before starting event loop  ------------
-void TimingDigiProducer::beginRun(edm::Run&, edm::EventSetup const& es){
+void UFSDDigiProducer::beginRun(edm::Run&, edm::EventSetup const& es){
   // get analysis mask to mask channels
   if (simulateDeadChannels) {
     edm::ESHandle<TotemAnalysisMask> analysisMask;
@@ -225,10 +225,10 @@ void TimingDigiProducer::beginRun(edm::Run&, edm::EventSetup const& es){
 }
 
 // ------------ method called once each job just after ending the event loop  ------------
-void TimingDigiProducer::endJob() {
+void UFSDDigiProducer::endJob() {
 }
 
-edm::DetSet<CTPPSDiamondDigi> TimingDigiProducer::convertRPStripDetSet(const edm::DetSet<RPStripDigi>& rpstrip_detset){
+edm::DetSet<CTPPSDiamondDigi> UFSDDigiProducer::convertRPStripDetSet(const edm::DetSet<RPStripDigi>& rpstrip_detset){
   edm::DetSet<CTPPSDiamondDigi> rpdigi_detset(rpstrip_detset.detId());
   rpdigi_detset.reserve(rpstrip_detset.size());
 
@@ -239,4 +239,4 @@ edm::DetSet<CTPPSDiamondDigi> TimingDigiProducer::convertRPStripDetSet(const edm
   return rpdigi_detset;
 }
 
-DEFINE_FWK_MODULE( TimingDigiProducer);
+DEFINE_FWK_MODULE( UFSDDigiProducer);

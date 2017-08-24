@@ -1,10 +1,10 @@
-#ifndef SimTotem_TimingDigiProducer_TimingDigiProducer_h
-#define SimTotem_TimingDigiProducer_TimingDigiProducer_h
+#ifndef SimTotem_DiamondDigiProducer_DiamondDigiProducer_h
+#define SimTotem_DiamondDigiProducer_DiamondDigiProducer_h
 
 // -*- C++ -*-
 //
-// Package:    TimingDigiProducer
-// Class:      TimingDigiProducer
+// Package:    DiamondDigiProducer
+// Class:      DiamondDigiProducer
 //
 #include "boost/shared_ptr.hpp"
 
@@ -28,7 +28,7 @@
 #include "DataFormats/TotemRPDataTypes/interface/RPDetTrigger.h"
 #include "SimTotem/RPDigiProducer/interface/RPSimTypes.h"
 
-#include "SimTotem/RPDigiProducer/interface/TimingDetDigitizer.h"
+#include "SimTotem/RPDigiProducer/interface/DiamondDetDigitizer.h"
 #include "SimDataFormats/CrossingFrame/interface/MixCollection.h"
 
 #include "DataFormats/Common/interface/DetSet.h"
@@ -44,10 +44,10 @@ namespace CLHEP {
 }
 
 
-class TimingDigiProducer : public edm::EDProducer {
+class DiamondDigiProducer : public edm::EDProducer {
 public:
-    explicit TimingDigiProducer(const edm::ParameterSet&);
-    ~TimingDigiProducer();
+    explicit DiamondDigiProducer(const edm::ParameterSet&);
+    ~DiamondDigiProducer();
 
 private:
     virtual void beginRun(edm::Run&, edm::EventSetup const&);
@@ -63,7 +63,7 @@ private:
     simhit_map SimHitMap;
 
     edm::ParameterSet conf_;
-    std::map<RPDetId, boost::shared_ptr<TimingDetDigitizer> > theAlgoMap;
+    std::map<RPDetId, boost::shared_ptr<DiamondDetDigitizer> > theAlgoMap;
     std::vector<edm::DetSet<CTPPSDiamondDigi> > theDigiVector;
     std::vector<edm::DetSet<RPDetTrigger> > theTriggerVector;
 
@@ -84,4 +84,4 @@ private:
 };
 
 
-#endif  //SimTotem_TimingDigiProducer_TimingDigiProducer_h
+#endif  //SimTotem_DiamondDigiProducer_DiamondDigiProducer_h

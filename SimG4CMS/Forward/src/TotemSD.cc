@@ -97,7 +97,9 @@ TotemSD::TotemSD(std::string name, const DDCompactView & cpv,
     numberingScheme = dynamic_cast<TotemVDetectorOrganization*>(new TotemT2NumberingSchemeGem(4));
   } else if (name == "TotemHitsRP") {
     numberingScheme = dynamic_cast<TotemVDetectorOrganization*>(new TotemRPNumberingScheme(3));
-  } else if (name == "CTPPSHitsTiming") {
+  } else if (name == "CTPPSHitsDiamond") {
+    numberingScheme = dynamic_cast<TotemVDetectorOrganization*>(new TotemRPNumberingScheme(3));
+  } else if (name == "CTPPSHitsUFSD") {
     numberingScheme = dynamic_cast<TotemVDetectorOrganization*>(new TotemRPNumberingScheme(3));
   } else {
     edm::LogWarning("ForwardSim") << "TotemSD: ReadoutName not supported\n";
@@ -172,7 +174,6 @@ uint32_t TotemSD::setDetUnitId(G4Step * aStep) {
 
 void TotemSD::Initialize(G4HCofThisEvent * HCE) {
   LogDebug("TotemRP") << "TotemSD : Initialize called for " << name;
-  std::cout<<"\n=== bla TotemSD.cc 175 initialize ===\n"<<name<<std::endl;
 
   theHC = new TotemG4HitCollection(name, collectionName[0]);
   G4SDManager::GetSDMpointer()->AddNewCollection(name, collectionName[0]);
@@ -314,7 +315,8 @@ void TotemSD::CreateNewHit()
 
   std::cout<<"\n=== bla TotemSD.cc 313 create new hit ===\n"<<std::endl;
   std::cout<<"\tunit id: "<<unitID<<std::endl;
-  std::cout<<"\thit pt: "<<hitPoint.x()<<"/"<<hitPoint.y()<<"/"<<hitPoint.z()<<"/"<<std::endl;
+  std::cout<<"\thit pt: "<<hitPoint.x()<<", "<<hitPoint.y()<<", "<<hitPoint.z()<<std::endl;
+  std::cout<<"\tlocal hit pt: "<<theLocalEntryPoint.x()<<", "<<theLocalEntryPoint.y()<<", "<<theLocalEntryPoint.z()<<std::endl;
 
   currentHit = new TotemG4Hit;
   currentHit->setTrackID(primaryID);

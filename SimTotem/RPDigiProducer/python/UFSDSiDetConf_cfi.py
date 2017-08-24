@@ -1,10 +1,10 @@
 import FWCore.ParameterSet.Config as cms
 
-TimingSiDetDigitizer = cms.EDProducer("TimingDigiProducer",
+UFSDSiDetDigitizer = cms.EDProducer("UFSDDigiProducer",
 
                                       # all distances in [mm]
                                       # RPDigiProducer
-                                      ROUList = cms.vstring('CTPPSHitsTiming'),
+                                      ROUList = cms.vstring('CTPPSHitsUFSD'),
                                       RPVerbosity = cms.int32(0),
                                       RPDigiSimHitRelationsPresistence = cms.bool(False), # save links betweend digi, clusters and OSCAR/Geant4 hits
 
