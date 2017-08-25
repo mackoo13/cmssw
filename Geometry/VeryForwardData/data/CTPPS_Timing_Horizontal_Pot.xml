@@ -46,7 +46,7 @@
     <PosPart copyNumber="1">
       <rParent name="Primary_Vacuum"/>
       <rChild name="External_Wall"/>
-      <Translation x="0*cm" y="0*mm" z="-[bottom_wall_thickness]"/>
+      <Translation x="0*cm" y="0*mm" z="-20*mm-[bottom_wall_thickness]"/>
     </PosPart>
     <PosPart copyNumber="1">
       <rParent name="Primary_Vacuum"/>

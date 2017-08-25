@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(682)     # 82 to wait for a hit
+    input = cms.untracked.int32(1)     # 82 to wait for a hit
 )
 
 # Configure the output module (save the result in a file)
@@ -115,9 +115,12 @@ process.ProtonTransportFunctionsESSource = cms.ESProducer("ProtonTransportFuncti
 
 BeamProtTransportSetup = cms.PSet(
     Verbosity = cms.bool(False),
-    ModelRootFile = cms.string('Geometry/VeryForwardProtonTransport/data/parametrization_6500GeV_90_transp_75.root'),
+    ModelRootFile = cms.string('Geometry/VeryForwardProtonTransport/data/parametrization_6500GeV_0p4_185_reco_beam1.root'),
     Model_IP_150_R_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
     Model_IP_150_L_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
+    # ModelRootFile = cms.string('Geometry/VeryForwardProtonTransport/data/parametrization_6500GeV_90_transp_75.root'),
+    # Model_IP_150_R_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
+    # Model_IP_150_L_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
 
     # in m, should be consistent with geometry xml definitions
     Model_IP_150_R_Zmin = cms.double(0.0),
@@ -506,11 +509,11 @@ process.mix = cms.EDProducer("MixingModule",
 
 #from SimGeneral/MixingModule/python/mix_Objects_cfi.py
 process.mix.mixObjects.mixSH.input =  cms.VInputTag(  # note that this list needs to be in the same order as the subdets
-    cms.InputTag("g4SimHits","CTPPSHitsDiamond"), cms.InputTag("g4SimHits","CTPPSHitsUFSD"))
+    cms.InputTag("g4SimHits","TotemHitsRP"), cms.InputTag("g4SimHits","CTPPSHitsDiamond"), cms.InputTag("g4SimHits","CTPPSHitsUFSD"), cms.InputTag("g4SimHits","CTPPSHitsPixel"))
 
-process.mix.mixObjects.mixSH.subdets = cms.vstring('CTPPSHitsDiamond','CTPPSHitsUFSD')
+process.mix.mixObjects.mixSH.subdets = cms.vstring('TotemHirsRP', 'CTPPSHitsDiamond','CTPPSHitsUFSD','CTPPSHitsPixel')
 
-process.mix.mixObjects.mixSH.crossingFrames = cms.untracked.vstring('CTPPSHitsDiamond','CTPPSHitsUFSD')
+process.mix.mixObjects.mixSH.crossingFrames = cms.untracked.vstring('TotemHirsRP', 'CTPPSHitsDiamond','CTPPSHitsUFSD','CTPPSHitsPixel')
 
 
 # Use particle table
@@ -519,8 +522,7 @@ process.load("SimGeneral.HepPDTESSource.pdt_cfi")
 
 ################## STEP 5 RPDigiProducer
 
-process.load("SimTotem.RPDigiProducer.DiamondSiDetConf_cfi")
-# process.load("SimTotem.RPDigiProducer.UFSDSiDetConf_cfi")
+process.load("SimTotem.RPDigiProducer.RPSiDetConf_cfi")
 
 ################### STEP 6 reco
 #

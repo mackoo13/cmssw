@@ -5,7 +5,7 @@
     <SpecParSection label="CTPPS_UFSD_Sensitive_Dets.xml">
         <SpecPar name="ROUHitsCTPPSTiming">
             <PartSelector path="//CTPPS_UFSD_Plane"/>
-            <Parameter name="SensitiveDetector" value="CTPPSTimingSensitiveDetector" eval="false"/>
+            <Parameter name="SensitiveDetector" value="CTPPSUFSDSensitiveDetector" eval="false"/>
             <Parameter name="ReadOutName" value="CTPPSHitsUFSD" eval="false"/>
         </SpecPar>
     </SpecParSection>
