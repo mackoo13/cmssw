@@ -95,6 +95,8 @@ TotemSD::TotemSD(std::string name, const DDCompactView & cpv,
     numberingScheme = dynamic_cast<TotemVDetectorOrganization*>(new TotemT2NumberingSchemeGem(4));
   } else if (name == "TotemHitsRP") {
     numberingScheme = dynamic_cast<TotemVDetectorOrganization*>(new TotemRPNumberingScheme(3));
+  } else if (name == "CTPPSPixelHits") {
+    numberingScheme = dynamic_cast<TotemVDetectorOrganization*>(new TotemRPNumberingScheme(3));
   } else {
     edm::LogWarning("ForwardSim") << "TotemSD: ReadoutName not supported\n";
   }
