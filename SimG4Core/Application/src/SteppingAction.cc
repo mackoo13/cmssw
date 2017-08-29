@@ -19,6 +19,7 @@ SteppingAction::SteppingAction(EventAction* e, const edm::ParameterSet & p,
   : eventAction_(e), tracker(nullptr), calo(nullptr), steppingVerbose(sv),
     initialized(false), killBeamPipe(false),hasWatcher(hasW)
 {
+  std::cout<<"\n=== bla SteppingAction.cc 22 ===\n"<<std::endl;
   theCriticalEnergyForVacuum = 
     (p.getParameter<double>("CriticalEnergyForVacuum")*CLHEP::MeV);
   if(0.0 < theCriticalEnergyForVacuum) { killBeamPipe = true; } 
