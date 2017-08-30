@@ -2,7 +2,7 @@ from SimG4Core.Application.hectorParameter_cfi import *
 import FWCore.ParameterSet.Config as cms
 import copy
 process = cms.Process("TestFlatGun")
-process.MessageLogger = cms.Service("MessageLogger",
+'''process.MessageLogger = cms.Service("MessageLogger",
     destinations = cms.untracked.vstring('warnings',
         'errors',
         'infos',
@@ -34,7 +34,7 @@ process.MessageLogger = cms.Service("MessageLogger",
             limit = cms.untracked.int32(1000000)
         )
     )
-)
+)'''
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
