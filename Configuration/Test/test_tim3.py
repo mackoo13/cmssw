@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(3)     # 82 to wait for a hit
+    input = cms.untracked.int32(111)     # 82 to wait for a hit
 )
 
 # Configure the output module (save the result in a file)
@@ -141,7 +141,7 @@ totemGeomXMLFiles = cms.vstring(
     'Geometry/CMSCommonData/data/rotations.xml',
     'Geometry/CMSCommonData/data/extend/cmsextent.xml',
     'Geometry/CMSCommonData/data/cms.xml',
-    'Geometry/CMSCommonData/data/beampipe.xml',
+    'Geometry/CMSCommonData/data/beampipe/2015/v1/beampipe.xml',
     'Geometry/CMSCommonData/data/cmsBeam.xml',
     'Geometry/CMSCommonData/data/cmsMother.xml',
     'Geometry/CMSCommonData/data/mgnt.xml',
@@ -205,7 +205,6 @@ totemGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/RP_Detectors_Assembly/RP_Detectors_Assembly_124.xml',
     'Geometry/VeryForwardData/data/RP_Detectors_Assembly/RP_Detectors_Assembly_125.xml',
     'Geometry/VeryForwardData/data/RP_Device.xml',
-    'Geometry/VeryForwardData/data/RP_Dist_Beam_Low_Betha/RP_Dist_Beam_Cent.xml',
     'Geometry/VeryForwardData/data/RP_Vertical_Device.xml',
     'Geometry/VeryForwardData/data/RP_Horizontal_Device.xml',
     'Geometry/VeryForwardData/data/RP_220_Right_Station.xml',
@@ -213,16 +212,21 @@ totemGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/RP_147_Right_Station.xml',
     'Geometry/VeryForwardData/data/RP_147_Left_Station.xml',
     'Geometry/VeryForwardData/data/RP_Stations_Assembly.xml',
-    #'Geometry/VeryForwardData/data/RP_Sensitive_Dets.xml',
+    # 'Geometry/VeryForwardData/data/RP_Sensitive_Dets.xml',
     'Geometry/VeryForwardData/data/RP_Cuts_Per_Region.xml',
-    'Geometry/VeryForwardData/data/RP_Param_Beam_Region.xml',
+    'Geometry/VeryForwardData/data/RP_Param_Beam_Region.xml')
 
-
+ctppsDiamondGeomXMLFiles = cms.vstring(
+    # diamond detectors
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Materials.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Transformations.xml',
-    'Geometry/VeryForwardData/data/CTPPS_Timing_Station_Parameters.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Diamond_X_Distance.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Parameters.xml',
-
+    'Geometry/VeryForwardData/data/CTPPS_Timing_Station_Parameters.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Timing_Horizontal_Pot.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Timing_Positive_Station.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Timing_Negative_Station.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Timing_Stations_Assembly.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Segments/CTPPS_Diamond_Pattern1_Segment1.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Segments/CTPPS_Diamond_Pattern2_Segment1.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Segments/CTPPS_Diamond_Pattern2_Segment2.xml',
@@ -238,24 +242,29 @@ totemGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane1.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane2.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane3.xml',
-    'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane4.xml',
-
+    #'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane4.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Detector_Assembly.xml',
-    'Geometry/VeryForwardData/data/CTPPS_Timing_Horizontal_Pot.xml',
-    'Geometry/VeryForwardData/data/CTPPS_Timing_Positive_Station.xml',
-    'Geometry/VeryForwardData/data/CTPPS_Timing_Negative_Station.xml',
-    'Geometry/VeryForwardData/data/CTPPS_Timing_Stations_Assembly.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Sensitive_Dets.xml',
 )
 
+ctppsUFSDGeomXMLFiles = cms.vstring(
+    # UFSDetectors
+    'Geometry/VeryForwardData/data/CTPPS_UFSD_Segments/CTPPS_UFSD_Pattern1.xml',
+    'Geometry/VeryForwardData/data/CTPPS_UFSD_Segments/CTPPS_UFSD_Pattern2_SegmentA.xml',
+    'Geometry/VeryForwardData/data/CTPPS_UFSD_Segments/CTPPS_UFSD_Pattern2_SegmentB.xml',
+    'Geometry/VeryForwardData/data/CTPPS_UFSD_Planes/CTPPS_UFSD_Plane4.xml',
+    'Geometry/VeryForwardData/data/CTPPS_UFSD_Parameters.xml',
+    'Geometry/VeryForwardData/data/CTPPS_UFSD_Sensitive_Dets.xml',
+)
+
 process.XMLIdealGeometryESSource = cms.ESSource("XMLIdealGeometryESSource",
-                                                geomXMLFiles = totemGeomXMLFiles,
+                                                geomXMLFiles = totemGeomXMLFiles+ctppsDiamondGeomXMLFiles+ctppsUFSDGeomXMLFiles,
                                                 rootNodeName = cms.string('cms:CMSE')
                                                 )
 
 # position of RPs
 process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/CTPPS_Diamond_X_Distance.xml")
-# process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/2016_ctpps_15sigma_margin0/RP_Dist_Beam_Cent.xml")
+process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/2016_ctpps_15sigma_margin0/RP_Dist_Beam_Cent.xml")
 
 # extended geometries
 process.TotemRPGeometryESModule = cms.ESProducer("TotemRPGeometryESModule",
@@ -282,6 +291,7 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 # # SimG4Core/Application/python/g4SimHits_cfi.py
 
 process.load("SimG4Core.Application.g4SimHits_cfi")
+process.g4SimHits.FileNameGDML = cms.untracked.string('totem_geom_diam2.gdml')
 process.g4SimHits.Physics.BeamProtTransportSetup = BeamProtTransportSetup
 #process.g4SimHits.Generator.HepMCProductLabel = 'generator'    # The input source for G4 module is connected to "process.source".
 process.g4SimHits.G4TrackingManagerVerbosity = cms.untracked.int32(0)
