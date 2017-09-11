@@ -85,8 +85,6 @@ TotemSD::TotemSD(std::string name, const DDCompactView & cpv,
        it !=lvNames.end(); it++) {
     this->AssignSD(*it);
     edm::LogInfo("ForwardSim") << "TotemSD : Assigns SD to LV " << (*it);
-
-    std::cout<<"\n=== bla TotemSD.cc 89 ===\n"<<*it<<std::endl;
   }
 
   if      (name == "TotemHitsT1") {
@@ -115,8 +113,6 @@ TotemSD::~TotemSD() {
 
 G4bool TotemSD::ProcessHits(G4Step * aStep, G4TouchableHistory * )
 {
-
-  std::cout<<"\n=== bla TotemSD.cc 117 process hits ===\n"<<std::endl;
   if (aStep == NULL)
   {
     return true;
@@ -219,7 +215,6 @@ void TotemSD::PrintAll() {
 void TotemSD::fillHits(edm::PSimHitContainer& c, std::string n) {
 
   if (slave->name() == n) c=slave->hits();
-  std::cout<<"\n=== bla TotemSD.cc 215 fill hits ===\n"<<n<<"/"<<slave->name()<<"/"<<c.size()<<std::endl;
 }
 
 void TotemSD::update (const BeginOfEvent * i) {
@@ -313,11 +308,6 @@ void TotemSD::GetStepInfo(G4Step* aStep)
 void TotemSD::CreateNewHit()
 {
 
-  std::cout<<"\n=== bla TotemSD.cc 313 create new hit ===\n"<<std::endl;
-  std::cout<<"\tunit id: "<<unitID<<std::endl;
-  std::cout<<"\thit pt: "<<hitPoint.x()<<", "<<hitPoint.y()<<", "<<hitPoint.z()<<std::endl;
-  std::cout<<"\tlocal hit pt: "<<theLocalEntryPoint.x()<<", "<<theLocalEntryPoint.y()<<", "<<theLocalEntryPoint.z()<<std::endl;
-
   currentHit = new TotemG4Hit;
   currentHit->setTrackID(primaryID);
   currentHit->setTimeSlice(tSlice);
@@ -351,7 +341,6 @@ void TotemSD::CreateNewHit()
 
 G4ThreeVector TotemSD::PosizioEvo(const G4ThreeVector& Pos, double vx, double vy,
                                   double vz, double pabs, int& accettanza) {
-  std::cout<<"\n=== bla TotemSD.cc 354 ===\n"<<std::endl;
   accettanza=0;
   G4ThreeVector PosEvo;
   double ThetaX=atan((Pos.x()-vx)/(Pos.z()-vz));
@@ -441,7 +430,6 @@ G4ThreeVector TotemSD::PosizioEvo(const G4ThreeVector& Pos, double vx, double vy
 
 void TotemSD::StoreHit(TotemG4Hit* hit)
 {
-  std::cout<<"\n=== bla TotemSD.cc 444 ===\n"<<std::endl;
   if (hit == 0 )
   {
     if(verbosity_)

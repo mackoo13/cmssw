@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1)     # 82 to wait for a hit
+    input = cms.untracked.int32(1011)     # 82 to wait for a hit
 )
 
 # Configure the output module (save the result in a file)
@@ -93,11 +93,11 @@ process.BeamOpticsParamsESSource = cms.ESSource("BeamOpticsParamsESSource",
                                                 BeamEnergy = cms.double(6500.0), # Gev
                                                 ProtonMass = cms.double(0.938272029), # Gev
                                                 LightSpeed = cms.double(300000000.0),
-                                                NormalizedEmittanceX = cms.double(2.5e-06),
-                                                NormalizedEmittanceY = cms.double(2.5e-06),
-                                                BetaStarX = cms.double(0.4), # m
-                                                BetaStarY = cms.double(0.4), # m
-                                                CrossingAngleX = cms.double(150e-6),
+    NormalizedEmittanceX = cms.double(3.75e-06),
+    NormalizedEmittanceY = cms.double(3.75e-06),
+    BetaStarX = cms.double(0.8), # m
+    BetaStarY = cms.double(0.8), # m
+    CrossingAngleX = cms.double(145e-6),
                                                 CrossingAngleY = cms.double(0.0),
                                                 BeamDisplacementX = cms.double(0.0), # m
                                                 BeamDisplacementY = cms.double(0.0), # m
@@ -116,11 +116,9 @@ process.ProtonTransportFunctionsESSource = cms.ESProducer("ProtonTransportFuncti
 BeamProtTransportSetup = cms.PSet(
     Verbosity = cms.bool(False),
     ModelRootFile = cms.string('Geometry/VeryForwardProtonTransport/data/parametrization_6500GeV_0p4_185_reco_beam1.root'),
+    # ModelRootFile = cms.string('Geometry/VeryForwardProtonTransport/data/parametrization_6500GeV_90_transp_75.root'),
     Model_IP_150_R_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
     Model_IP_150_L_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
-    # ModelRootFile = cms.string('Geometry/VeryForwardProtonTransport/data/parametrization_6500GeV_90_transp_75.root'),
-    # Model_IP_150_R_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
-    # Model_IP_150_L_Name = cms.string('ip5_to_beg_150_station_lhcb1'),
 
     # in m, should be consistent with geometry xml definitions
     Model_IP_150_R_Zmin = cms.double(0.0),
@@ -263,6 +261,7 @@ process.XMLIdealGeometryESSource = cms.ESSource("XMLIdealGeometryESSource",
                                                 )
 
 # position of RPs
+process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/CTPPS_Diamond_X_Distance.xml")
 process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/2016_ctpps_15sigma_margin0/RP_Dist_Beam_Cent.xml")
 
 # extended geometries
@@ -290,6 +289,7 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 # # SimG4Core/Application/python/g4SimHits_cfi.py
 
 process.load("SimG4Core.Application.g4SimHits_cfi")
+# process.g4SimHits.FileNameGDML = cms.untracked.string('totem_geom_diam2.gdml')
 process.g4SimHits.Physics.BeamProtTransportSetup = BeamProtTransportSetup
 #process.g4SimHits.Generator.HepMCProductLabel = 'generator'    # The input source for G4 module is connected to "process.source".
 process.g4SimHits.G4TrackingManagerVerbosity = cms.untracked.int32(0)

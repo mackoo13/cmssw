@@ -187,7 +187,6 @@ void OscarProducer::produce(edm::Event & e, const edm::EventSetup & es)
 
         std::unique_ptr<edm::PSimHitContainer>
                 product(new edm::PSimHitContainer);
-        std::cout<<"\n=== bla OscarProducer.cc 190 ===\n"<<std::endl;
         (*it)->fillHits(*product,*in);
         e.put(std::move(product),*in);
       }
