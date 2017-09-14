@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(1011)     # 82 to wait for a hit
+    input = cms.untracked.int32(2000)
 )
 
 # Configure the output module (save the result in a file)
@@ -137,7 +137,8 @@ BeamProtTransportSetup = cms.PSet(
 totemGeomXMLFiles = cms.vstring(
     'Geometry/CMSCommonData/data/materials.xml',
     'Geometry/CMSCommonData/data/rotations.xml',
-    'Geometry/CMSCommonData/data/extend/cmsextent.xml',
+    # 'Geometry/CMSCommonData/data/extend/cmsextent.xml',
+    'Configuration/Test/cmsextent.xml',
     'Geometry/CMSCommonData/data/cms.xml',
     'Geometry/CMSCommonData/data/beampipe/2015/v1/beampipe.xml',
     'Geometry/CMSCommonData/data/cmsBeam.xml',
@@ -210,7 +211,7 @@ totemGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/RP_147_Right_Station.xml',
     'Geometry/VeryForwardData/data/RP_147_Left_Station.xml',
     'Geometry/VeryForwardData/data/RP_Stations_Assembly.xml',
-    # 'Geometry/VeryForwardData/data/RP_Sensitive_Dets.xml',
+    'Geometry/VeryForwardData/data/RP_Sensitive_Dets.xml',
     'Geometry/VeryForwardData/data/RP_Cuts_Per_Region.xml',
     'Geometry/VeryForwardData/data/RP_Param_Beam_Region.xml')
 
@@ -289,7 +290,7 @@ process.load("Configuration.StandardSequences.MagneticField_cff")
 # # SimG4Core/Application/python/g4SimHits_cfi.py
 
 process.load("SimG4Core.Application.g4SimHits_cfi")
-# process.g4SimHits.FileNameGDML = cms.untracked.string('totem_geom_diam2.gdml')
+# process.g4SimHits.FileNameGDML = cms.untracked.string('totem_geom_diam4.gdml')
 process.g4SimHits.Physics.BeamProtTransportSetup = BeamProtTransportSetup
 #process.g4SimHits.Generator.HepMCProductLabel = 'generator'    # The input source for G4 module is connected to "process.source".
 process.g4SimHits.G4TrackingManagerVerbosity = cms.untracked.int32(0)
@@ -509,11 +510,23 @@ process.mix = cms.EDProducer("MixingModule",
 
 #from SimGeneral/MixingModule/python/mix_Objects_cfi.py
 process.mix.mixObjects.mixSH.input =  cms.VInputTag(  # note that this list needs to be in the same order as the subdets
-    cms.InputTag("g4SimHits","TotemHitsRP"), cms.InputTag("g4SimHits","CTPPSHitsDiamond"), cms.InputTag("g4SimHits","CTPPSHitsUFSD"), cms.InputTag("g4SimHits","CTPPSHitsPixel"))
+    cms.InputTag("g4SimHits","TotemHitsRP"),
+    cms.InputTag("g4SimHits","CTPPSHitsDiamond"),
+    cms.InputTag("g4SimHits","CTPPSHitsUFSD"),
+    cms.InputTag("g4SimHits","CTPPSHitsPixel"))
 
-process.mix.mixObjects.mixSH.subdets = cms.vstring('TotemHirsRP', 'CTPPSHitsDiamond','CTPPSHitsUFSD','CTPPSHitsPixel')
+process.mix.mixObjects.mixSH.subdets = cms.vstring(
+    'TotemHirsRP',
+    'CTPPSHitsDiamond',
+    'CTPPSHitsUFSD',
+    'CTPPSHitsPixel'
+)
 
-process.mix.mixObjects.mixSH.crossingFrames = cms.untracked.vstring('TotemHirsRP', 'CTPPSHitsDiamond','CTPPSHitsUFSD','CTPPSHitsPixel')
+process.mix.mixObjects.mixSH.crossingFrames = cms.untracked.vstring('TotemHirsRP',
+                                                                    'CTPPSHitsDiamond',
+                                                                    'CTPPSHitsUFSD',
+                                                                    'CTPPSHitsPixel'
+                                                                    )
 
 
 # Use particle table
@@ -541,7 +554,7 @@ process.load("SimTotem.RPDigiProducer.RPSiDetConf_cfi")
 #
 # #######
 process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
-process.totemRPClusterProducer.tagDigi = cms.InputTag("DiamondSiDetDigitizer")
+# process.totemRPClusterProducer.tagDigi = cms.InputTag("DiamondSiDetDigitizer")
 # process.totemRPClusterProducer.tagDigi = cms.InputTag("UFSDSiDetDigitizer")
 #process.dump = cms.EDAnalyzer("EventContentAnalyzer")
 

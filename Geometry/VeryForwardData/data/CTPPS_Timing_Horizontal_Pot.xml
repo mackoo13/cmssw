@@ -52,7 +52,7 @@
     <PosPart copyNumber="1">
       <rParent name="Primary_Vacuum"/>
       <rChild name="Bottom_Wall"/>
-      <Translation x="0*cm" y="0*mm" z="-[plane_length]/2+[bottom_wall_thickness]/2"/>
+      <Translation x="0*cm" y="0*mm" z="-[plane_length]/2-[bottom_wall_thickness]/2"/>
     </PosPart>
   </PosPartSection>
 
