@@ -137,8 +137,7 @@ BeamProtTransportSetup = cms.PSet(
 totemGeomXMLFiles = cms.vstring(
     'Geometry/CMSCommonData/data/materials.xml',
     'Geometry/CMSCommonData/data/rotations.xml',
-    # 'Geometry/CMSCommonData/data/extend/cmsextent.xml',
-    'Configuration/Test/cmsextent.xml',
+    'Geometry/CMSCommonData/data/extend/cmsextent.xml',
     'Geometry/CMSCommonData/data/cms.xml',
     'Geometry/CMSCommonData/data/beampipe/2015/v1/beampipe.xml',
     'Geometry/CMSCommonData/data/cmsBeam.xml',

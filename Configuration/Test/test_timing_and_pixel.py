@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(2000)
+    input = cms.untracked.int32(100)
 )
 
 # Configure the output module (save the result in a file)
@@ -100,7 +100,7 @@ process.BeamOpticsParamsESSource = cms.ESSource("BeamOpticsParamsESSource",
     CrossingAngleX = cms.double(150e-6),
                                                 CrossingAngleY = cms.double(0.0),
                                                 BeamDisplacementX = cms.double(0.0), # m
-                                                BeamDisplacementY = cms.double(-1.5e-3), # m
+                                                BeamDisplacementY = cms.double(0.0), # m
                                                 BeamDisplacementZ = cms.double(0.0), # m
                                                 BunchSizeZ = cms.double(0.07), # m
                                                 MeanXi = cms.double(0.0), # energy smearing
@@ -137,8 +137,7 @@ BeamProtTransportSetup = cms.PSet(
 totemGeomXMLFiles = cms.vstring(
     'Geometry/CMSCommonData/data/materials.xml',
     'Geometry/CMSCommonData/data/rotations.xml',
-    # 'Geometry/CMSCommonData/data/extend/cmsextent.xml',
-    'Configuration/Test/cmsextent.xml',
+    'Geometry/CMSCommonData/data/extend/cmsextent.xml',
     'Geometry/CMSCommonData/data/cms.xml',
     'Geometry/CMSCommonData/data/beampipe/2015/v1/beampipe.xml',
     'Geometry/CMSCommonData/data/cmsBeam.xml',
@@ -241,7 +240,7 @@ ctppsDiamondGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane1.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane2.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane3.xml',
-    #'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane4.xml',
+    #'Geometry/VeryForwardData/data/CTPPS_Diamond_Planes/CTPPS_Diamond_Plane4.xml',     # being replaced by UFSD
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Detector_Assembly.xml',
     'Geometry/VeryForwardData/data/CTPPS_Diamond_Sensitive_Dets.xml',
 )
@@ -566,8 +565,7 @@ process.load("SimTotem.RPDigiProducer.RPSiDetConf_cfi")
 #
 # #######
 process.load("RecoCTPPS.Configuration.recoCTPPS_cff")
-# process.totemRPClusterProducer.tagDigi = cms.InputTag("DiamondSiDetDigitizer")
-# process.totemRPClusterProducer.tagDigi = cms.InputTag("UFSDSiDetDigitizer")
+process.totemRPClusterProducer.tagDigi = cms.InputTag("RPSiDetDigitizer")
 #process.dump = cms.EDAnalyzer("EventContentAnalyzer")
 
 # process.RPHitDists = cms.EDAnalyzer("GeometryInfoModule")
