@@ -25,6 +25,8 @@ typedef CastorSD CastorSensitiveDetector;
 DEFINE_SENSITIVEDETECTOR(CastorSensitiveDetector);
 typedef TotemSD TotemSensitiveDetector;
 DEFINE_SENSITIVEDETECTOR(TotemSensitiveDetector);
+typedef TotemSD CTPPSSensitiveDetector;
+DEFINE_SENSITIVEDETECTOR(CTPPSSensitiveDetector);
 typedef TotemSD CTPPSDiamondSensitiveDetector;
 DEFINE_SENSITIVEDETECTOR(CTPPSDiamondSensitiveDetector);
 typedef TotemSD CTPPSUFSDSensitiveDetector;

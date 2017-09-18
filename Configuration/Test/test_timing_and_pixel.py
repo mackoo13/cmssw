@@ -38,7 +38,7 @@ process = cms.Process("TestFlatGun")
 
 # Specify the maximum events to simulate
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(200)
+    input = cms.untracked.int32(2000)
 )
 
 # Configure the output module (save the result in a file)
@@ -95,12 +95,12 @@ process.BeamOpticsParamsESSource = cms.ESSource("BeamOpticsParamsESSource",
                                                 LightSpeed = cms.double(300000000.0),
     NormalizedEmittanceX = cms.double(3.75e-06),
     NormalizedEmittanceY = cms.double(3.75e-06),
-    BetaStarX = cms.double(0.8), # m
-    BetaStarY = cms.double(0.8), # m
-    CrossingAngleX = cms.double(145e-6),
+    BetaStarX = cms.double(0.4), # m
+    BetaStarY = cms.double(0.4), # m
+    CrossingAngleX = cms.double(150e-6),
                                                 CrossingAngleY = cms.double(0.0),
                                                 BeamDisplacementX = cms.double(0.0), # m
-                                                BeamDisplacementY = cms.double(0.0), # m
+                                                BeamDisplacementY = cms.double(-1.5e-3), # m
                                                 BeamDisplacementZ = cms.double(0.0), # m
                                                 BunchSizeZ = cms.double(0.07), # m
                                                 MeanXi = cms.double(0.0), # energy smearing
@@ -256,14 +256,25 @@ ctppsUFSDGeomXMLFiles = cms.vstring(
     'Geometry/VeryForwardData/data/CTPPS_UFSD_Sensitive_Dets.xml',
 )
 
+
+# pixel files
+ctppsPixelGeomXMLFiles = cms.vstring(
+    'Geometry/VeryForwardData/data/ppstrackerMaterials.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Pixel_Module.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Pixel_Module_2x2.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Pixel_Assembly_Box_Real_023.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Pixel_Assembly_Box_Real_123.xml',
+    'Geometry/VeryForwardData/data/CTPPS_Pixel_Sens.xml'
+)
+
 process.XMLIdealGeometryESSource = cms.ESSource("XMLIdealGeometryESSource",
-                                                geomXMLFiles = totemGeomXMLFiles+ctppsDiamondGeomXMLFiles+ctppsUFSDGeomXMLFiles,
+                                                geomXMLFiles = totemGeomXMLFiles+ctppsDiamondGeomXMLFiles+ctppsUFSDGeomXMLFiles+ctppsPixelGeomXMLFiles,
                                                 rootNodeName = cms.string('cms:CMSE')
                                                 )
 
 # position of RPs
 process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/CTPPS_Diamond_X_Distance.xml")
-process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/2016_ctpps_15sigma_margin0/RP_Dist_Beam_Cent.xml")
+process.XMLIdealGeometryESSource.geomXMLFiles.append("Geometry/VeryForwardData/data/2017_07_08_fill5912/RP_Dist_Beam_Cent.xml")
 
 # extended geometries
 process.ctppsGeometryESModule = cms.ESProducer("CTPPSGeometryESModule",
